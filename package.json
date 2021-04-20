@@ -1,6 +1,6 @@
 {
   "name": "com.rsherriff.woodblock",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "displayName": "Woodblock",
   "description": "A simple and quick manager and UI for games written in INK.",
   "unity": "2020.1",
