@@ -1,4 +1,5 @@
 # Woodblock
+[![openupm](https://img.shields.io/npm/v/com.rsherriff.woodblock?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.rsherriff.woodblock/)
 
 Woodblock is a simple game manager and UI for Unity that allows the playing of games written in Ink.
 
