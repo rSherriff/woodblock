@@ -15,8 +15,6 @@ Woodblock is intended for student/hobbyist or small projects as its asset manage
 
 **WIP**
 
-Open up WoodblockExample Scene and edit WoodblockData to customise your story and UI.
-
 ##### Dependencies
 
     com.unity.textmeshpro 3.0.1
