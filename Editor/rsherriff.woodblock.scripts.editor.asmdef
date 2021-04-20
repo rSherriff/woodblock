@@ -1,7 +1,7 @@
 {
     "name": "Woodblock-Scripts-Editor",
     "references": [
-        "Woodblock-Scripts
+        "Woodblock-Scripts"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
@@ -13,4 +13,4 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": []
-} 
+}

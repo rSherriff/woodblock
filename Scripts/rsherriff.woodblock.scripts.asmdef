@@ -1,7 +1,9 @@
 {
     "name": "Woodblock-Scripts",
     "references": [
-        "Ink-Libraries"
+        "Ink-Libraries",
+        "InkEditor",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
