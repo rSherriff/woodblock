@@ -8,7 +8,17 @@
   "dependencies": {
     "com.unity.textmeshpro": "3.0.1",
     "com.inklestudios.ink-unity-integration": "1.0.2"
- },
+  },
+  "keywords": [
+    "ink",
+    "inky",
+    "story",
+    "narrative",
+    "choice",
+    "dialogue",
+    "text",
+    "plot"
+  ],
   "author": {
     "name": "Richard Sherriff",
     "email": "rsherriff@uel.ac.uk",
