@@ -1,0 +1,9 @@
+{
+    "name": "Woodblock-Scripts",
+    "references": [
+        "Ink-Libraries"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "autoReferenced": true
+}
