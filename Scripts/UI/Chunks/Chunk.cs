@@ -6,16 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 abstract public class Chunk : MonoBehaviour
 {
-    public WoodblockGameData data;
     public AnimationCurve expandCurve;
 
     protected CanvasGroup faderCanvasGroup;
     protected bool settingUp = false;
     protected ScrollRect scrollRect;
-
-    abstract public void RefreshSettings();
-
-    protected IEnumerator FadeIn()
+    protected IEnumerator FadeIn(float fadeDuration)
     {
         settingUp = true;
 
@@ -26,7 +22,7 @@ abstract public class Chunk : MonoBehaviour
 
         faderCanvasGroup.blocksRaycasts = true;
 
-        float fadeSpeed = Mathf.Abs(faderCanvasGroup.alpha - 1) / data.storyFadeDuration;
+        float fadeSpeed = Mathf.Abs(faderCanvasGroup.alpha - 1) / fadeDuration;
 
         while (!Mathf.Approximately(faderCanvasGroup.alpha, 1))
         {

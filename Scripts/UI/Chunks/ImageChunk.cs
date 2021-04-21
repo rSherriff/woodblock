@@ -12,7 +12,7 @@ public class ImageChunk : Chunk
     private LayoutElement layout;
     private float targetHeight;
 
-    public void SetupImage(ScrollRect containerScrollRect, string img, int desiredWidth = 0, int desiredHeight = 0)
+    public void SetupImage(ScrollRect containerScrollRect, string img, int defaultLandscapeHeight, int defaultPortraitHeight,float fadeDuration, float imageSpeed, float fadeDelay, int desiredWidth = 0, int desiredHeight = 0)
     {
         settingUp = true;
 
@@ -38,28 +38,25 @@ public class ImageChunk : Chunk
 
             if (ratio > 1)
             {
-                targetHeight = data.defaultPortraitHeight;
+                targetHeight = defaultPortraitHeight;
             }
             else
             {
-                targetHeight = data.defaultLandscapeHeight;
+                targetHeight = defaultLandscapeHeight;
             }
             layout.preferredWidth = targetHeight * ratio;
         }
 
 
-        StartCoroutine(Expand());
+        StartCoroutine(Expand(fadeDuration, imageSpeed, fadeDelay));
     }
-
-    override public void RefreshSettings() {}
-
-    private IEnumerator Expand()
+    private IEnumerator Expand(float fadeDuration, float imageSpeed, float fadeDelay)
     {
         settingUp = true;
 
         while (!Mathf.Approximately(targetHeight, layout.preferredHeight))
         {
-            layout.preferredHeight = Mathf.MoveTowards(layout.preferredHeight, targetHeight, data.imageSpeed * Time.deltaTime);
+            layout.preferredHeight = Mathf.MoveTowards(layout.preferredHeight, targetHeight, imageSpeed * Time.deltaTime);
 
             scrollRect.content.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical();
             scrollRect.content.GetComponent<ContentSizeFitter>().SetLayoutVertical();
@@ -68,9 +65,9 @@ public class ImageChunk : Chunk
             yield return null;
         }
 
-        StartCoroutine(FadeIn());
+        StartCoroutine(FadeIn(fadeDuration));
 
-        yield return new WaitForSeconds(data.storyFadeDelay);
+        yield return new WaitForSeconds(fadeDelay);
 
         settingUp = false;
 

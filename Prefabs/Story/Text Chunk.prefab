@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9102522443739192258}
   - component: {fileID: 4671943115431169799}
   - component: {fileID: 2842837533259109888}
+  - component: {fileID: 174107014327706361}
   - component: {fileID: 6637731854031582435}
   - component: {fileID: 4154385411639957785}
   - component: {fileID: 6313115489724152724}
@@ -61,7 +62,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fcb8bcdea9d84edabc1e2ab403d788e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 97be41a74fd693b4492d5811fa331fe7, type: 2}
   expandCurve:
     serializedVersion: 2
     m_Curve: []
@@ -69,6 +69,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   textMesh: {fileID: 7733270330194051969}
+--- !u!114 &174107014327706361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064332087663011704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b62d2fb559b7e2e428689814973b92f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 7733270330194051969}
+  backgroundImage: {fileID: 6313115489724152724}
 --- !u!225 &6637731854031582435
 CanvasGroup:
   m_ObjectHideFlags: 0

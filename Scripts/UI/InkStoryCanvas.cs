@@ -9,10 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+[ExecuteAlways]
 public class InkStoryCanvas : MonoBehaviour
 {
-    public WoodblockGameData data;
-    public InkStoryAdaptor story;
+    private InkStoryAdaptor story;
+    private WoodblockGameData data;
 
     [Header("UI Prefabs")]
     public Button verticalButtonPrefab;
@@ -44,27 +45,25 @@ public class InkStoryCanvas : MonoBehaviour
     [Header("Display Observers")]
     public List<DisplaySettingsObserver> displayObservers;
 
-    void Start()
+
+    public void SetData(InkStoryAdaptor storyRef)
     {
-        if (story.SetupOk())
+        if (storyRef.SetupOk())
         {
+            story = storyRef;
+            data = story.data;
+
             ClearUI();
 
             // Start the refresh cycle
             StartCoroutine(FirstRefresh());
-        }
 
-        foreach (DisplaySettingsObserver ob in displayObservers)
-        {
-            ob.OnNotify();
+            foreach (DisplaySettingsObserver ob in displayObservers)
+            {
+                ob.OnNotify(data);
+            }
         }
     }
-
-    void Update()
-    {
-
-    }
-
     private IEnumerator FirstRefresh()
     {
         StartCoroutine(Fade(textCanvasGroup, data.storyFadeDuration, 1));
@@ -143,6 +142,12 @@ public class InkStoryCanvas : MonoBehaviour
 
                 choiceNumber++;
 
+                //Listen for UI style updates
+                DisplaySettingsObserver observer = choiceButton.GetComponent<DisplaySettingsObserver>();
+                observer.OnNotify(data);
+                displayObservers.Add(observer);
+
+                //Fade In
                 CanvasGroup cg = choiceButton.GetComponent<CanvasGroup>();
                 cg.alpha = 0;
                 StartCoroutine(Fade(cg, data.storyFadeDuration, 1, data.storyFadeDelay * choiceNumber));
@@ -162,6 +167,11 @@ public class InkStoryCanvas : MonoBehaviour
 
                 // Set listener
                 choiceButton.onClick.AddListener(EndStory);
+
+                //Listen for UI style updates
+                DisplaySettingsObserver observer = choiceButton.GetComponent<DisplaySettingsObserver>();
+                observer.OnNotify(data);
+                displayObservers.Add(observer);
 
                 //Fade In
                 CanvasGroup cg = choiceButton.GetComponent<CanvasGroup>();
@@ -194,7 +204,11 @@ public class InkStoryCanvas : MonoBehaviour
                             desiredWidth = Int32.Parse(imgArgs[2]);
                             desiredHeight = Int32.Parse(imgArgs[3]);
                         }
-                        image.SetupImage(scrollRect, t.Split()[1], desiredWidth, desiredHeight);
+                        image.SetupImage(scrollRect, t.Split()[1],data.defaultLandscapeHeight, data.defaultPortraitHeight,
+                            data.storyFadeDuration, 
+                            data.imageSpeed, 
+                            data.storyFadeDelay,
+                            desiredWidth, desiredHeight);
                     }
 
                     while (image.IsSettingUp())
@@ -228,8 +242,13 @@ public class InkStoryCanvas : MonoBehaviour
     {
         TextChunk chunk = Instantiate(textPrefab) as TextChunk;
         chunk.transform.SetParent(textRect.transform, false);
-        chunk.SetupText(scrollRect, nextTextBoxLines, !storyStarted);
+        chunk.SetupText(scrollRect, nextTextBoxLines, !storyStarted, data.textSpeed, data.textBoxScrollCutoff, data.storyFadeDuration);
         storyStarted = true;
+
+        //Listen for UI style updates
+        DisplaySettingsObserver observer = chunk.GetComponent<DisplaySettingsObserver>();
+        observer.OnNotify(data);
+        displayObservers.Add(observer);
 
         return chunk;
     }
@@ -242,7 +261,12 @@ public class InkStoryCanvas : MonoBehaviour
 
         TextChunk chunk = Instantiate(textPrefab) as TextChunk;
         chunk.transform.SetParent(textRect.transform, false);
-        chunk.SetupText(scrollRect, line, true);
+        chunk.SetupText(scrollRect, line, true, data.textSpeed, data.textBoxScrollCutoff, data.storyFadeDuration);
+
+        //Listen for UI style updates
+        DisplaySettingsObserver observer = chunk.GetComponent<DisplaySettingsObserver>();
+        observer.OnNotify(data);
+        displayObservers.Add(observer);
     }
 
     public bool ShouldAddTextChunk(List<StoryLine> nextTextBoxLines)
@@ -264,16 +288,7 @@ public class InkStoryCanvas : MonoBehaviour
     //End the current Story
     public void EndStory()
     {
-        //StartCoroutine(FadeAndEnd());
         Application.Quit();
-    }
-
-    //Fade out before we allow ourselves to end. old, should probably be done with full screen fade
-    IEnumerator FadeAndEnd()
-    {
-        StartCoroutine(Fade(textCanvasGroup, data.storyFadeDuration, 0));
-        StartCoroutine(Fade(buttonCanvasGroup, data.storyFadeDuration, 0));
-        yield return new WaitForSeconds(data.storyFadeDuration);
     }
 
     // When we click the choice button, tell the story to choose that choice!
@@ -296,6 +311,7 @@ public class InkStoryCanvas : MonoBehaviour
         int childCount = textRect.transform.childCount;
         for (int i = childCount - 1; i >= 1; --i)//Delete all chunks but one (the initial spacer chunk)
         {
+            displayObservers.Remove(textRect.transform.GetChild(i).GetComponent<DisplaySettingsObserver>());
             Destroy(textRect.transform.GetChild(i).gameObject);
         }
 
@@ -307,12 +323,14 @@ public class InkStoryCanvas : MonoBehaviour
         int childCount = buttonRectVertical.transform.childCount;
         for (int i = childCount - 1; i >= 0; --i)
         {
+            displayObservers.Remove(buttonRectVertical.transform.GetChild(i).GetComponent<DisplaySettingsObserver>());
             Destroy(buttonRectVertical.transform.GetChild(i).gameObject);
         }
 
         childCount = buttonRectGrid.transform.childCount;
         for (int i = childCount - 1; i >= 0; --i)
         {
+            displayObservers.Remove(buttonRectVertical.transform.GetChild(i).GetComponent<DisplaySettingsObserver>());
             Destroy(buttonRectGrid.transform.GetChild(i).gameObject);
         }
     }

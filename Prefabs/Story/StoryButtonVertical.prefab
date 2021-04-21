@@ -104,11 +104,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2946326655979526310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbd69f7d58b54c54affe950b2702d13, type: 3}
+  m_Script: {fileID: 11500000, guid: 7622b7bed2bd2e44586dea2fa3ce29f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 97be41a74fd693b4492d5811fa331fe7, type: 2}
-  buttonText: {fileID: 863299917779198582}
+  button: {fileID: 3270036828821639537}
+  text: {fileID: 863299917779198582}
 --- !u!225 &1801559282125390526
 CanvasGroup:
   m_ObjectHideFlags: 0

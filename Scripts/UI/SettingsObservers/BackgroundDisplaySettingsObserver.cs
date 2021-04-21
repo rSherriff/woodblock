@@ -4,9 +4,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RawImage))]
 public class BackgroundDisplaySettingsObserver : DisplaySettingsObserver
 {
-    public override void OnNotify()
+    public RawImage image;
+    public override void OnNotify(WoodblockGameData data)
     {
-        GetComponent<RawImage>().texture = data.backgroundImage;
-        GetComponent<RawImage>().color = data.backgroundColor;
+        image.texture = data.backgroundImage;
+        image.color = data.backgroundColor;
     }
 }

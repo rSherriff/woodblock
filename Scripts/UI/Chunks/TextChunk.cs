@@ -12,47 +12,26 @@ public class TextChunk : Chunk
 
     private LayoutElement layout;
     private List<StoryLine> lines;
-    private Image backgroundImage;
 
     private void Start()
     {
         lines = new List<StoryLine>();
-        backgroundImage = GetComponent<Image>();
-        RefreshSettings();
     }
 
-    private void Update()
+    public void SetupText(ScrollRect containerScrollRect, List<StoryLine> linesIn, bool shouldFade, float speed, int scrollCutoff, float fadeDuration)
     {
-        if (Application.isEditor)
-        {
-            RefreshSettings();
-        }
+        StartCoroutine(Setup(containerScrollRect, linesIn, shouldFade, speed, scrollCutoff, fadeDuration));
     }
 
-    override public void RefreshSettings()
-    {
-        textMesh.font = data.font;
-        textMesh.color = data.fontColor;
-        textMesh.fontSize = data.fontSize;
-        textMesh.lineSpacing = data.lineSpacing;
-        textMesh.paragraphSpacing = data.paragraphSpacing;
-        backgroundImage.color = data.textBackgroundColor;
-    }
-
-    public void SetupText(ScrollRect containerScrollRect, List<StoryLine> linesIn, bool shouldFade = false)
-    {
-        StartCoroutine(Setup(containerScrollRect, linesIn, shouldFade));
-    }
-
-    public void SetupText(ScrollRect containerScrollRect, StoryLine lineIn, bool shouldFade = false)
+    public void SetupText(ScrollRect containerScrollRect, StoryLine lineIn, bool shouldFade, float speed, int scrollCutoff, float fadeDuration)
     {
         List<StoryLine> lines = new List<StoryLine>();
         lines.Add(lineIn);
 
-        StartCoroutine(Setup(containerScrollRect, lines, shouldFade));
+        StartCoroutine(Setup(containerScrollRect, lines, shouldFade, speed, scrollCutoff, fadeDuration));
     }
 
-    public IEnumerator Setup(ScrollRect containerScrollRect, List<StoryLine> linesIn, bool shouldFade = false)
+    public IEnumerator Setup(ScrollRect containerScrollRect, List<StoryLine> linesIn, bool shouldFade, float speed, int scrollCutoff, float fadeDuration)
     {
         settingUp = true;
 
@@ -98,12 +77,12 @@ public class TextChunk : Chunk
         GetComponent<LayoutElement>().preferredHeight = textMesh.preferredHeight;
 
         if (!shouldFade)
-            StartCoroutine(Expand());
+            StartCoroutine(Expand(speed, scrollCutoff, fadeDuration));
         else
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeIn(fadeDuration));
     }
 
-    private IEnumerator Expand()
+    private IEnumerator Expand(float speed, int scrollCutoff, float fadeDuration)
     {
         settingUp = true;
 
@@ -111,9 +90,9 @@ public class TextChunk : Chunk
 
         float desiredHeight = layout.preferredHeight;
         layout.preferredHeight = 0;
-        while (!Mathf.Approximately(desiredHeight, layout.preferredHeight) && layout.preferredHeight < data.textBoxScrollCutoff)
+        while (!Mathf.Approximately(desiredHeight, layout.preferredHeight) && layout.preferredHeight < scrollCutoff)
         {
-            layout.preferredHeight = Mathf.MoveTowards(layout.preferredHeight, desiredHeight, data.textSpeed * Time.deltaTime);
+            layout.preferredHeight = Mathf.MoveTowards(layout.preferredHeight, desiredHeight, speed * Time.deltaTime);
 
             
             scrollRect.content.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical();
@@ -128,7 +107,7 @@ public class TextChunk : Chunk
             layout.preferredHeight = desiredHeight;
         }
 
-        StartCoroutine(FadeIn());
+        StartCoroutine(FadeIn(fadeDuration));
 
         settingUp = false;
     }

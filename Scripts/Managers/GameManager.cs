@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     [CustomEditor(typeof(GameManager))]
     public class GameManagerEditor : Editor
     {
-        void OnInspectorGUI()
+        public override void OnInspectorGUI()
         {
             var manager = target as GameManager;
 

@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[CreateAssetMenu(menuName = "UI Data")]
+[CreateAssetMenu(menuName = "Woodblock Data")]
 public class WoodblockGameData : ScriptableObject
 {
+    private bool refreshGame;
+
     [Header("Story")]
     public TextAsset inkJSONStory;
 
@@ -19,7 +21,6 @@ public class WoodblockGameData : ScriptableObject
     public Color textBackgroundColor;
     public Color fontColor;
     public float fontSize;
-    public float textFadeDuration;
     public int leftMargin;
     public int rightMargin;
     public int lineSpacing;
@@ -43,4 +44,13 @@ public class WoodblockGameData : ScriptableObject
     [Header("Menu")]
     public Color menuBackgroundColor;
 
+    public void SetRefreshGame(bool value)
+    {
+        refreshGame = value;
+    }
+
+    public bool ShouldRefreshGame()
+    {
+        return refreshGame;
+    }
 }

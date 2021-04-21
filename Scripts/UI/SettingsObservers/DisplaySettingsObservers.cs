@@ -5,6 +5,5 @@ using UnityEngine.UI;
 
 public abstract class DisplaySettingsObserver : MonoBehaviour
 {
-    public WoodblockGameData data;
-    public abstract void OnNotify();
+    public abstract void OnNotify(WoodblockGameData data);
 }

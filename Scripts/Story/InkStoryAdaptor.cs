@@ -19,6 +19,7 @@ public struct StoryLine
 public class InkStoryAdaptor : MonoBehaviour
 {
     public WoodblockGameData data;
+    public InkStoryCanvas storyCanvas;
     public static event Action<Story> OnCreateStory;
 
 #if (UNITY_EDITOR)
@@ -30,7 +31,7 @@ public class InkStoryAdaptor : MonoBehaviour
 
     void Awake()
     {
-        if (data.inkJSONStory != null)
+        if (data != null && data.inkJSONStory != null)
         {
             Debug.Log("Loading Story " + data.inkJSONStory.name);
 
@@ -39,6 +40,8 @@ public class InkStoryAdaptor : MonoBehaviour
 #if (UNITY_EDITOR)
             if (OnCreateStory != null && attachStoryOnPlay) OnCreateStory(story);
 #endif
+
+            storyCanvas.SetData(this);
         }
         else
         {

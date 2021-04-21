@@ -71,3 +71,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /ExampleData/
+ExampleData.meta
+
+WoodblockExample.unity
+WoodblockExample.unity.meta
