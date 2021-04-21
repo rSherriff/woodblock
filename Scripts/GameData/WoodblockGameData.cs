@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[CreateAssetMenu(menuName = "Woodblock Data")]
+[CreateAssetMenu(fileName = "WoodblockData", menuName = "Woodblock/Woodblock Data")]
 public class WoodblockGameData : ScriptableObject
 {
     private bool refreshGame;

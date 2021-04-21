@@ -2169,12 +2169,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This is example text. Update the WoodblockData file to change the way
-    your game looks and behaves.
+  m_text: 'Welcome to Woodblock! To get started, create a woodblock data file using
+    Assets->Create->Woodblock.
 
-    This text will disappear when you start your
-    game.
+    Place your story in the data file and customise
+    how you want your game to look.
 
+    Then place the data file in the "Ink Story
+    Adaptor" component of the top level of this prefab WoodblockGame and you''re
+    good to go!
 
 '
   m_isRightToLeft: 0
