@@ -14,6 +14,7 @@ Woodblock is intended for student/hobbyist or small projects as its asset manage
 ### Use
 
 **WIP**
+Example Project available at: https://github.com/rSherriff/woodblock-example
 
 ##### Dependencies
 
