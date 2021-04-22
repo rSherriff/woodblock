@@ -28,7 +28,6 @@ public class WoodblockGameData : ScriptableObject
     public int textBoxScrollCutoff = 250;
 
     [Header("Button")]
-
     public ColorBlock buttonColors  = ColorBlock.defaultColorBlock;
     public Color buttonFontColor = Color.black;
 
@@ -43,7 +42,10 @@ public class WoodblockGameData : ScriptableObject
     public int defaultLandscapeHeight = 200;
 
     [Header("Menu")]
-    public Color menuBackgroundColor = new Color(0,0,0,128);
+    public Color menuBackgroundColor = new Color(0, 0, 0, 128);
+    [Header("Menu Buttons")]
+    public ColorBlock menuButtonColors = ColorBlock.defaultColorBlock;
+    public Color menuButtonFontColor = Color.black;
 
     public void SetRefreshGame(bool value)
     {

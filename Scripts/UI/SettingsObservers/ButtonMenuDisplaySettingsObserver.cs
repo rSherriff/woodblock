@@ -8,7 +8,9 @@ public class ButtonMenuDisplaySettingsObserver : DisplaySettingsObserver
     public TextMeshProUGUI text;
     public override void OnNotify(WoodblockGameData data)
     {
+        button.colors = data.menuButtonColors;
+
         text.font = data.font;
-        text.color = data.buttonFontColor;
+        text.color = data.menuButtonFontColor;
     }
 }
