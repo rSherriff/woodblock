@@ -330,7 +330,7 @@ public class InkStoryCanvas : MonoBehaviour
         childCount = buttonRectGrid.transform.childCount;
         for (int i = childCount - 1; i >= 0; --i)
         {
-            displayObservers.Remove(buttonRectVertical.transform.GetChild(i).GetComponent<DisplaySettingsObserver>());
+            displayObservers.Remove(buttonRectGrid.transform.GetChild(i).GetComponent<DisplaySettingsObserver>());
             Destroy(buttonRectGrid.transform.GetChild(i).gameObject);
         }
     }
