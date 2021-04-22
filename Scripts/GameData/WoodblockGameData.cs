@@ -13,36 +13,37 @@ public class WoodblockGameData : ScriptableObject
     public TextAsset inkJSONStory;
 
     [Header("Background")]
-    public Color backgroundColor;
+    public Color backgroundColor = Color.white;
     public Texture backgroundImage;
 
     [Header("Text")]
     public TMP_FontAsset font;
-    public Color textBackgroundColor;
-    public Color fontColor;
-    public float fontSize;
-    public int leftMargin;
-    public int rightMargin;
-    public int lineSpacing;
-    public int paragraphSpacing;
-    public int textBoxScrollCutoff;
+    public Color textBackgroundColor = new Color(0,0,0,0);
+    public Color fontColor = Color.black;
+    public float fontSize = 15;
+    public int leftMargin =150;
+    public int rightMargin = 150;
+    public int lineSpacing = 30;
+    public int paragraphSpacing = 60;
+    public int textBoxScrollCutoff = 250;
 
     [Header("Button")]
-    public ColorBlock buttonColors;
-    public Color buttonFontColor;
+
+    public ColorBlock buttonColors  = ColorBlock.defaultColorBlock;
+    public Color buttonFontColor = Color.black;
 
     [Header("Progression")]
-    public float textSpeed;
-    public float storyFadeDuration;
-    public float storyFadeDelay;
+    public float textSpeed = 200;
+    public float storyFadeDuration = 0.2f;
+    public float storyFadeDelay = 0.2f;
 
     [Header("Images")]
-    public float imageSpeed;
-    public int defaultPortraitHeight;
-    public int defaultLandscapeHeight;
+    public float imageSpeed = 200;
+    public int defaultPortraitHeight = 200;
+    public int defaultLandscapeHeight = 200;
 
     [Header("Menu")]
-    public Color menuBackgroundColor;
+    public Color menuBackgroundColor = new Color(0,0,0,128);
 
     public void SetRefreshGame(bool value)
     {
